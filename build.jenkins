@@ -4,7 +4,7 @@ def PROJECT = "semics_appV9"
 def TEAM = "semics"
 def label = "${PROJECT}-${UUID.randomUUID().toString()}"
 def MAVEN_OPTIONS = "-DskipTests"
-def APP_K8s_URL=""
+def APP_CLUSTER_URL="https://sample-java-app-dev-92dab717.hcp.westus2.azmk8s.io"
 def IMAGE_URL="https://acrsharedcommon55709.azurecr.io"
 
 
@@ -63,7 +63,7 @@ podTemplate(
         stage ('Staging') {
             container('kubectl'){
 
-      withKubeConfig([credentialsId: 'app_k8s_secret', serverUrl: '${APP_K8s_URL}']) {
+      withKubeConfig([credentialsId: 'app_k8s_secret', serverUrl: '${APP_CLUSTER_URL}']) {
                   sh 'kubectl apply -f deployment.yaml'
                 }
 
