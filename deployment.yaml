@@ -11,24 +11,24 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: appV9
-  name: appV9
+    app: app-v9
+  name: app-v9
   namespace: semics
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: appV9
+      app: app-v9
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: appV9
+        app: app-v9
     spec:
       containers:
       - image: acrsharedcommon55709.azurecr.io/appV9
-        name: appV9
+        name: app-v9
         resources: {}
 status: {}
 ---
@@ -37,8 +37,8 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: appV9
-  name: appV9
+    app: app-v9
+  name: app-v9
   namespace: semics
 spec:
   ports:
@@ -47,7 +47,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: appV9
+    app: app-v9
   type: ClusterIP
 status:
   loadBalancer: {}
