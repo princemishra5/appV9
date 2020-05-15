@@ -27,7 +27,7 @@ spec:
         app: app-v9
     spec:
       containers:
-      - image: acrsharedcommon55709.azurecr.io/appV9
+      - image: acrsharedcommon55709.azurecr.io/app-v9
         name: app-v9
         resources: {}
 status: {}
