@@ -64,7 +64,7 @@ podTemplate(
             container('kubectl'){
 
       withKubeConfig([credentialsId: 'app_k8s_secret', serverUrl: "${APP_CLUSTER_URL}"]) {
-                  sh 'kubectl apply -f deployment.yaml'
+                  sh 'kubectl apply -f abcd.yaml'
                 }
 
 
