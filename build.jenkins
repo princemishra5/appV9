@@ -68,8 +68,9 @@ podTemplate(
 
       withKubeConfig([credentialsId: 'app_k8s_secret', serverUrl: "${APP_CLUSTER_URL}"]) {
           sh """
+               kubectl create namespace $TEAM 
                kubectl get pods -n jenkins
-               kubectl run $app --image=$imageName
+               kubectl run $app --image=$imageName -n $TEAM
                
              """
          
