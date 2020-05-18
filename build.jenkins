@@ -32,9 +32,9 @@ podTemplate(
 
         stage ('Build') {
             container ('maven') {
-              //  sh """
-               // mvn clean install $MAVEN_OPTIONS
-                //"""
+                sh """
+                mvn clean install $MAVEN_OPTIONS
+               """
             }
         }
         
