@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def PROJECT = "semics_appV9"
+def PROJECT = "semics-appV9"
 def TEAM = "semics"
 def label = "${PROJECT}-${UUID.randomUUID().toString()}"
 def MAVEN_OPTIONS = "-DskipTests"
@@ -22,7 +22,7 @@ podTemplate(
 ) {
     node(label) {
         def commitId
-        def app = "${TEAM}-${PROJECT.toLowerCase()}"
+        def app = "${PROJECT.toLowerCase()}"
         def image
         
         stage ('Checkout') {
