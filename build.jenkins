@@ -68,7 +68,9 @@ podTemplate(
 
       withKubeConfig([credentialsId: 'app_k8s_secret', serverUrl: "${APP_CLUSTER_URL}"]) {
           sh """
+               kubectl get pods -n jenkins
                kubectl run $app --image=$imageName
+               
              """
          
                 }
