@@ -48,10 +48,10 @@ podTemplate(
 
                           docker.withRegistry("${IMAGE_URL}", 'registry-credentials-id') {
 
-                           def customImage = docker.build("${TEAM}/${PROJECT.toLowerCase()}:${commitId}")
+                 //          def customImage = docker.build("${TEAM}/${PROJECT.toLowerCase()}:${commitId}")
 
                             /* Push the container to the custom Registry */
-                             customImage.push()
+                   //          customImage.push()
                          }
 
                 }
