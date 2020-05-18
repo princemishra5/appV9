@@ -29,17 +29,17 @@ podTemplate(
 
         stage ('Build') {
             container ('maven') {
-                sh """
-                mvn clean install $MAVEN_OPTIONS
-                """
+              //  sh """
+               // mvn clean install $MAVEN_OPTIONS
+                //"""
             }
         }
         
         stage ('Test') {
             container ('maven') {
-                sh """
-                mvn test
-                """
+              //  sh """
+                //mvn test
+                //"""
             }
         }
 
@@ -64,7 +64,7 @@ podTemplate(
             container('kubectl'){
 
       withKubeConfig([credentialsId: 'app_k8s_secret', serverUrl: "${APP_CLUSTER_URL}"]) {
-          sh 'kubectl run '"${TEAM}/${PROJECT}-app"' --image='"${TEAM}/${PROJECT.toLowerCase()}:${commitId}"''
+          sh 'kubectl run '"${TEAM}-${PROJECT}-app"' --image='"${TEAM}/${PROJECT.toLowerCase()}:${commitId}"''
                 }
 
 
