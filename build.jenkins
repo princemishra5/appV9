@@ -22,6 +22,9 @@ podTemplate(
 ) {
     node(label) {
         def commitId
+        def app = "${TEAM}-${PROJECT.toLowerCase()}"
+        def image
+        
         stage ('Checkout') {
             checkout scm
             commitId = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
@@ -47,8 +50,8 @@ podTemplate(
             container ('docker') {
 
                           docker.withRegistry("${IMAGE_URL}", 'registry-credentials-id') {
-
-                 //          def customImage = docker.build("${TEAM}/${PROJECT.toLowerCase()}:${commitId}")
+                             imageName = "${TEAM}/${PROJECT.toLowerCase()}:${commitId}"
+                 //          def customImage = docker.build('imageName')
 
                             /* Push the container to the custom Registry */
                    //          customImage.push()
@@ -64,7 +67,10 @@ podTemplate(
             container('kubectl'){
 
       withKubeConfig([credentialsId: 'app_k8s_secret', serverUrl: "${APP_CLUSTER_URL}"]) {
-          sh 'kubectl run '"${TEAM}-${PROJECT}-app"' --image='"${TEAM}/${PROJECT.toLowerCase()}:${commitId}"''
+          sh """
+               kubectl run $app --image=$imageName
+             """
+         
                 }
 
 
