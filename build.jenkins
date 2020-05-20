@@ -70,7 +70,7 @@ podTemplate(
           sh """
                kubectl create namespace $TEAM 
                kubectl get pods -n jenkins
-               kubectl run $app --image=$imageName -n $TEAM
+               kubectl run $app --image=$imageName -n $TEAM --overrides='{ "apiVersion": "v1", "spec": { "imagePullSecrets": [{"name": "semics-secret"}] } }'
                
              """
          
