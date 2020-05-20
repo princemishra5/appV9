@@ -70,10 +70,10 @@ podTemplate(
 
       withKubeConfig([credentialsId: 'app_k8s_secret', serverUrl: "${APP_CLUSTER_URL}"]) {
           sh """
-               echo $customImage 
+               echo acrsharedcommon81948.azurecr.io/$imageName 
                kubectl create namespace $TEAM 
                kubectl get pods -n jenkins
-               kubectl run $app --image=$customImage  -n $TEAM 
+               kubectl run $app --image=acrsharedcommon81948.azurecr.io/$imageName  -n $TEAM 
              """
          
                 }
