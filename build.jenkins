@@ -5,7 +5,7 @@ def TEAM = "semics"
 def label = "${PROJECT}-${UUID.randomUUID().toString()}"
 def MAVEN_OPTIONS = "-DskipTests"
 def APP_CLUSTER_URL="https://sample-java-app-dev-79f9a43d.hcp.westus2.azmk8s.io"
-def IMAGE_URL="https://acrsharedcommon81948.azurecr.io"
+def IMAGE_URL="acrsharedcommon81948.azurecr.io"
 
 
 podTemplate(
@@ -50,8 +50,8 @@ podTemplate(
         stage ('Docker build and push') {
             container ('docker') {
 
-                          docker.withRegistry("${IMAGE_URL}", 'registry-credentials-id') {
-                             imageName = "${TEAM}/${PROJECT.toLowerCase()}"
+                          docker.withRegistry("https://${IMAGE_URL}", 'registry-credentials-id') {
+                              imageName = "${TEAM}/${PROJECT.toLowerCase()}:${commitId}"
                              customImage = docker.build(imageName)
                                 
                             /* Push the container to the custom Registry */
@@ -70,10 +70,10 @@ podTemplate(
 
       withKubeConfig([credentialsId: 'app_k8s_secret', serverUrl: "${APP_CLUSTER_URL}"]) {
           sh """
-               echo acrsharedcommon81948.azurecr.io/$imageName 
+               
                kubectl create namespace $TEAM 
                kubectl get pods -n jenkins
-               kubectl run $app --image=acrsharedcommon81948.azurecr.io/$imageName  -n $TEAM 
+               kubectl run $app --image=$IMAGE_URL/$imageName  -n $TEAM 
              """
          
                 }
