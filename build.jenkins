@@ -24,6 +24,7 @@ podTemplate(
         def commitId
         def app = "${PROJECT.toLowerCase()}"
         def image
+        def customImage
         
         stage ('Checkout') {
             checkout scm
@@ -51,10 +52,11 @@ podTemplate(
 
                           docker.withRegistry("${IMAGE_URL}", 'registry-credentials-id') {
                              imageName = "${TEAM}/${PROJECT.toLowerCase()}"
-                            def customImage = docker.build(imageName)
-
+                             customImage = docker.build(imageName)
+                                
                             /* Push the container to the custom Registry */
                              customImage.push()
+                             
                          }
 
                 }
@@ -68,9 +70,10 @@ podTemplate(
 
       withKubeConfig([credentialsId: 'app_k8s_secret', serverUrl: "${APP_CLUSTER_URL}"]) {
           sh """
+               echo $customImage 
                kubectl create namespace $TEAM 
                kubectl get pods -n jenkins
-               kubectl run $app --image=$imageName -n $TEAM 
+               kubectl run $app --image=$customImage  -n $TEAM 
              """
          
                 }
