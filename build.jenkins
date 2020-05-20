@@ -4,7 +4,7 @@ def PROJECT = "semics-appV9"
 def TEAM = "semics"
 def label = "${PROJECT}-${UUID.randomUUID().toString()}"
 def MAVEN_OPTIONS = "-DskipTests"
-def APP_CLUSTER_URL="https://sample-java-app-dev-3048b1e8.hcp.westus2.azmk8s.io"
+def APP_CLUSTER_URL="https://sample-java-app-dev-309d8d6f.hcp.westus2.azmk8s.io"
 def IMAGE_URL="acrsharedcommon81948.azurecr.io"
 
 
