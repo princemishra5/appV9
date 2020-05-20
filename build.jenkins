@@ -50,7 +50,7 @@ podTemplate(
         stage ('Docker build and push') {
             container ('docker') {
 
-                          docker.withRegistry("https://${IMAGE_URL}") {
+                          docker.withRegistry("https://${IMAGE_URL}", 'registry-credentials-id') {
                               imageName = "${TEAM}/${PROJECT.toLowerCase()}:${commitId}"
                              customImage = docker.build(imageName)
                                 
